@@ -214,11 +214,18 @@ public class MainActivity extends ActionBarActivity {
         String dr=spin.getSelectedItem().toString();
         at.execute(dr);
 
-        String dir2="https://damp-mesa-1375.herokuapp.com/rest/establecimientos/nombre/";
-        AsyncTask<String, Integer, String> at2 = hiloLocalidades(dir2);
         EditText ad = (EditText)findViewById(R.id.editText);
         String dr2=ad.getText().toString().trim();
+        AsyncTask<String, Integer, String> at2;
+        if(dr2.length()>0){
+            String dir2="https://damp-mesa-1375.herokuapp.com/rest/establecimientos/nombre/";
+            at2 = hiloLocalidades(dir2);
+        }else{
+            String dir2="https://damp-mesa-1375.herokuapp.com/rest/establecimientos/todos";
+            at2 = hiloLocalidades(dir2);
+        }
         at2.execute(dr2);
+
 
         Spinner lv = (Spinner)findViewById(R.id.spinner2);
         ArrayList<String> productos = new ArrayList<String>();
@@ -304,7 +311,8 @@ public class MainActivity extends ActionBarActivity {
             }
         };
         Spinner spin = (Spinner)findViewById(R.id.spinner2);
-        Integer dr=Integer.parseInt(spin.getSelectedItem().toString().substring(0, 1));
+        String ner =spin.getSelectedItem().toString();
+        Integer dr=Integer.parseInt(ner.substring(0, ner.indexOf(".")));
         at.execute(dr);
 
         ArrayList<String> productos = new ArrayList<>();
