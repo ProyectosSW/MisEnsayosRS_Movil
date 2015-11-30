@@ -1,9 +1,8 @@
 package music.misensayosrs;
 
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,9 +30,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -230,19 +227,38 @@ public class MainActivity extends ActionBarActivity {
                 productos3.add(productos.get(i));
             }
         }
-
         ArrayAdapter<String> aa=new ArrayAdapter<String>(this, R.layout.abc_simple_dropdown_hint, productos3);
         lv.setAdapter(aa);
         Button abi = (Button)findViewById(R.id.button2);
-        abi.setEnabled(true);
+        abi.setEnabled(productos3.size()>0);
+        ListView lvwe = (ListView)findViewById(R.id.listView);
+        ArrayAdapter<String> qwe=new ArrayAdapter<String>(this, R.layout.abc_simple_dropdown_hint, new ArrayList<String>());
+        lvwe.setAdapter(qwe);
     }
 
+    /**
+     *
+     * @param v
+     * @throws ExecutionException
+     * @throws InterruptedException
+     * @throws JSONException
+     */
     public void informacionEstablecimiento(View v) throws ExecutionException, InterruptedException, JSONException {
         AsyncTask<Integer, Integer, String> at = new AsyncTask<Integer, Integer, String>() {
+
+            /**
+             *
+             */
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
             }
+
+            /**
+             *
+             * @param urls
+             * @return
+             */
             @Override
             protected String doInBackground(Integer... urls) {
                 StringBuilder builder = new StringBuilder();
@@ -270,11 +286,19 @@ public class MainActivity extends ActionBarActivity {
 
             }
 
+            /**
+             *
+             * @param progress
+             */
             @Override
             protected void onProgressUpdate(Integer... progress) {
 
             }
 
+            /**
+             *
+             * @param result
+             */
             @Override
             protected void onPostExecute(String result) {
 
